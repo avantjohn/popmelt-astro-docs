@@ -1,0 +1,353 @@
+---
+import Logo from '../../components/Logo.astro';
+import ThemeButton from './../ThemeButton.astro';
+
+const navItems = [
+    {
+        linkText: 'Getting Started',
+        href: '/docs/',
+        subItems: [
+            { linkText: 'Introduction', href: '/docs/getting-started/intro' },
+            { linkText: 'Installation', href: '/docs/getting-started/install' }
+        ]
+    },
+    {
+        linkText: 'Pages & Layouts',
+        href: '/docs/',
+        subItems: [
+            { linkText: 'Basic Usage', href: '/docs/components/basics' },
+            { linkText: 'Advanced', href: '/docs/components/advanced' }
+        ]
+    },
+    {
+        linkText: 'Components',
+        href: '/docs/',
+        subItems: [
+            { linkText: 'Starter', href: '/docs/components/basics' },
+            { linkText: '$ Premium $', href: '/docs/components/advanced' }
+        ]
+    },
+    {
+        linkText: 'Theme Styles',
+        href: '/docs/',
+        subItems: [
+            { linkText: 'Basic Usage', href: '/docs/components/basics' },
+            { linkText: 'Advanced', href: '/docs/components/advanced' }
+        ]
+    }
+];
+---
+
+<script>
+    // Add mobile menu toggle functionality
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuBtn?.addEventListener('click', () => {
+        navLinks?.classList.toggle('active');
+        menuBtn?.classList.toggle('active');
+    });
+
+    // Add expand/collapse functionality
+    const expandBtn = document.querySelector('.expand-btn');
+    const navWrap = document.querySelector('.nav-wrap');
+
+    expandBtn?.addEventListener('click', () => {
+        navWrap?.classList.toggle('collapsed');
+        // Update aria-expanded state
+        const isExpanded = navWrap?.classList.contains('collapsed');
+        expandBtn?.setAttribute('aria-expanded', (!isExpanded).toString());
+    });
+
+    // Handle main content margin
+    const main = document.querySelector('main');
+    expandBtn?.addEventListener('click', () => {
+        main?.classList.toggle('nav-collapsed');
+    });
+
+    // Add dropdown functionality
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach((item) => {
+        const link = item.querySelector('.nav-link');
+        const subNav = item.querySelector('.sub-nav-links');
+
+        if (subNav) {
+            link?.addEventListener('click', (e) => {
+                e.preventDefault();
+                subNav.classList.toggle('expanded');
+                link.classList.toggle('active');
+
+                // Update aria-expanded state
+                const isExpanded = subNav.classList.contains('expanded');
+                link.setAttribute('aria-expanded', isExpanded.toString());
+            });
+        }
+    });
+</script>
+
+<nav class="nav-wrap">
+    <div class="nav-header">
+        <a href="/" class="logo-link">
+            <Logo />
+        </a>
+    </div>
+
+    <button class="expand-btn" aria-label="Toggle sidebar" aria-expanded="true">
+        <svg class="expand-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+    </button>
+
+    {
+        !!navItems?.length && (
+            <ul class="nav-links">
+                {navItems.map((item) => (
+                    <li class="nav-item">
+                        <a href={item.href} class="nav-link" aria-expanded="false">
+                            <span>{item.linkText}</span>
+                            {item.subItems?.length > 0 && (
+                                <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12">
+                                    <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            )}
+                        </a>
+                        {item.subItems?.length > 0 && (
+                            <ul class="sub-nav-links">
+                                {item.subItems.map((subItem) => (
+                                    <li>
+                                        <a href={subItem.href} class="sub-nav-link">
+                                            <span>{subItem.linkText}</span>
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        )
+    }
+    <div class="nav-footer">
+        <ThemeButton />
+    </div>
+</nav>
+
+<style>
+    ul {
+        padding-left: 0;
+    }
+    .nav-wrap {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem;
+        border-right: 1px solid var(--c-border-primary);
+        background-color: var(--c-bg-primary);
+        z-index: 100;
+        transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-wrap.collapsed {
+        width: 24px;
+    }
+
+    .nav-wrap.collapsed .logo-link,
+    .nav-wrap.collapsed .nav-link span,
+    .nav-wrap.collapsed .nav-footer {
+        display: none;
+    }
+
+    .nav-header {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        margin-bottom: 2rem;
+        padding: 0.5rem 0.5rem;
+        position: relative;
+        height: 40px;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        flex: 1;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        color: var(--c-text-secondary);
+        transition: all 0.2s ease;
+        justify-content: space-between;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .nav-link:hover {
+        background-color: var(--c-bg-secondary);
+        transform: translateX(4px);
+    }
+
+    .nav-footer {
+        padding: 1rem 1rem;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .expand-btn {
+        position: absolute;
+        right: -18px;
+        top: 40px;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        background: var(--c-surface-primary);
+        border: 1px solid var(--c-border-primary);
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 101;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .expand-btn:hover {
+        background: var(--c-surface-primary);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .expand-icon {
+        color: var(--c-text-primary);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav-wrap.collapsed .expand-icon {
+        transform: rotate(180deg);
+    }
+
+    /* Mobile Nav Menu */
+    @media (max-width: 768px) {
+        .nav-wrap {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-wrap.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu-btn {
+            display: block;
+        }
+
+        .nav-links {
+            opacity: 1;
+            pointer-events: auto;
+            transform: none;
+            position: relative;
+            height: auto;
+            padding: 0;
+        }
+
+        .hamburger,
+        .hamburger::before,
+        .hamburger::after {
+            background: var(--c-text-primary);
+        }
+
+        .expand-btn {
+            display: none;
+        }
+    }
+
+    .nav-wrap.collapsed .nav-link span,
+    .nav-wrap.collapsed .sub-nav-link span,
+    .nav-wrap.collapsed .sub-nav-links {
+        visibility: hidden;
+        opacity: 0;
+        transition:
+            visibility 0s linear 0.2s,
+            opacity 0.2s ease;
+    }
+
+    .sub-nav-links {
+        display: none;
+        margin-left: 1.5rem;
+        margin-top: 0.5rem;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding-left: 1rem;
+        border-left: 1px solid var(--c-border-primary);
+    }
+
+    .sub-nav-links.expanded {
+        display: flex;
+    }
+
+    .nav-wrap.collapsed .sub-nav-links.expanded {
+        display: none;
+    }
+
+    .sub-nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.9em;
+        color: var(--c-text-secondary);
+        opacity: 0.8;
+        transition: all 0.2s ease;
+    }
+
+    .sub-nav-link:hover {
+        background-color: var(--c-bg-secondary);
+        opacity: 1;
+        transform: translateX(4px);
+    }
+
+    .dropdown-icon {
+        transition:
+            transform 0.2s ease,
+            opacity 0.2s ease;
+    }
+
+    .nav-link.active .dropdown-icon {
+        transform: rotate(-180deg);
+    }
+
+    .nav-link span,
+    .nav-link .dropdown-icon,
+    .sub-nav-link span,
+    .logo-link,
+    .nav-footer {
+        opacity: 1;
+        transition: opacity 0.2s ease;
+        transition-delay: 0.1s;
+    }
+
+    .nav-wrap.collapsed .nav-link span,
+    .nav-wrap.collapsed .nav-link .dropdown-icon,
+    .nav-wrap.collapsed .sub-nav-link span,
+    .nav-wrap.collapsed .logo-link,
+    .nav-wrap.collapsed .nav-footer {
+        opacity: 0;
+        transition-delay: 0s;
+        pointer-events: none;
+    }
+
+    .nav-wrap.collapsed .dropdown-icon {
+        opacity: 0;
+        visibility: hidden;
+        transition-delay: 0s;
+    }
+</style>

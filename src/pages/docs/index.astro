@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../layouts/DocsLayout.astro';
 import { Icon } from 'astro-icon/components';
 
 import PageHeader from '../../components/docs/PageHeader.astro';
@@ -29,7 +29,7 @@ docs
             <div class="wrap">
                 <div class="features-section">
                     <div class="features-title">
-                        <h3>quick resources</h3>
+                        <h4>quick resources</h4>
                     </div>
                     <div class="card-list">
                         <Card
@@ -50,7 +50,7 @@ docs
             <div class="wrap">
                 <div class="features-section">
                     <div class="features-title">
-                        <h3>pages & layouts</h3>
+                        <h4>pages & layouts</h4>
                     </div>
                     <div class="card-list">
                         <Card title="new-page.astro" desc="Learn how to create a new page using the new-page.astro template." href="/docs/" icon="docs/pages" />
@@ -72,7 +72,7 @@ docs
             <div class="wrap">
                 <div class="features-section">
                     <div class="features-title">
-                        <h3>starter components</h3>
+                        <h4>starter components</h4>
                     </div>
                     <div class="card-list">
                         <Card
@@ -97,7 +97,7 @@ docs
             <div class="wrap">
                 <div class="features-section">
                     <div class="features-title">
-                        <h3>theme styles</h3>
+                        <h4>theme styles</h4>
                     </div>
                     <div class="card-list">
                         <Card
@@ -177,7 +177,7 @@ docs
     /* Feature Section */
     .features-section {
         display: flex;
-        gap: calc(var(--p-xl) * 2);
+        gap: calc(var(--p-xl) * 1.5);
         max-width: 100%;
         flex-grow: 1;
         flex-direction: row;
@@ -193,44 +193,9 @@ docs
 
     .card-list {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: var(--p-md);
-        flex-grow: 1;
-    }
-
-    .card {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-
-    .card-image {
         width: 100%;
-        aspect-ratio: 16/9;
-        background-color: var(--c-fill-primary);
-        border: var(--c-border-primary) 1px solid;
-        border-radius: var(--b-radius-lg);
-    }
-
-    .card-text-wrap {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .card-title {
-        display: flex;
-    }
-
-    .card-title-icon {
-        display: flex;
-        align-items: center;
-        margin-right: 0.75rem;
-    }
-
-    .card-desc {
-        display: flex;
-        color: var(--c-text-secondary);
     }
 
     /* LAPTOP SMALL - Responsive Styles */
