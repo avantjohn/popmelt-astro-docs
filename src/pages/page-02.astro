@@ -1,24 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { Icon } from 'astro-icon/components';
-import Hero from '../components/Hero.astro';
-
-const pageTitle = `Popmelt Astro Minimal`;
+const placeholder = `Page 02`;
 ---
 
 <script>
     import { animate, scroll } from 'motion';
-    animate('.home-fade', { opacity: [0, 1] }, { duration: 1, ease: 'easeInOut' });
+    animate('.fade', { opacity: [0, 1] }, { duration: 1, ease: 'easeInOut' });
 </script>
 
-<Layout title={pageTitle}>
-    <div class="main-wrap home-fade">
+<Layout title="Page Name">
+    <div class="main-wrap fade">
         <section>
-            <Hero />
+            <div class="wrap hero">
+                <h1>Hello {placeholder}</h1>
+            </div>
         </section>
         <section>
-            <div class="wrap banner-docs">
-                <h2>theme <a href="/docs">docs</a></h2>
+            <div class="wrap">
+                <h2>Section</h2>
             </div>
         </section>
     </div>
@@ -27,7 +27,7 @@ const pageTitle = `Popmelt Astro Minimal`;
 <style>
     /* Page Layout Styles */
 
-    .home-fade {
+    .fade {
         opacity: 0;
     }
 
@@ -52,15 +52,6 @@ const pageTitle = `Popmelt Astro Minimal`;
 
     .hero {
         height: 50vh;
-    }
-
-    .banner-docs {
-        border-top: var(--c-border-primary) 1px solid;
-    }
-
-    a {
-        color: var(--c-brand-primary);
-        text-decoration: underline;
     }
 
     /* LAPTOP SMALL - Responsive Styles */

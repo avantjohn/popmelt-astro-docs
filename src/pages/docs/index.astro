@@ -1,0 +1,261 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+import PageHeader from '../../components/docs/PageHeader.astro';
+import Card from '../../components/docs/Card.astro';
+
+const navItems = [
+    { linkText: 'Fonts', href: '/docs/fonts' },
+    { linkText: 'Colors', href: '/docs/colors' }
+];
+
+const pageTitle = `
+docs
+`;
+---
+
+<script>
+    import { animate, scroll } from 'motion';
+    animate('.fade', { opacity: [0, 1] }, { duration: 1, ease: 'easeInOut' });
+</script>
+
+<Layout title={pageTitle}>
+    <div class="main-wrap fade">
+        <section>
+            <PageHeader title={pageTitle} />
+        </section>
+        <section>
+            <div class="wrap">
+                <div class="features-section">
+                    <div class="features-title">
+                        <h3>quick resources</h3>
+                    </div>
+                    <div class="card-list">
+                        <Card
+                            title="start building"
+                            desc="Learn how to set up your project and get started with the basics of your documentation."
+                            href="/docs/start"
+                            icon="docs/start"
+                        />
+                        <Card
+                            title="sandbox"
+                            desc="Explore your interactive sandbox environment to test styles and build custom components."
+                            href="/docs/sandbox"
+                            icon="docs/sandbox"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="wrap">
+                <div class="features-section">
+                    <div class="features-title">
+                        <h3>pages & layouts</h3>
+                    </div>
+                    <div class="card-list">
+                        <Card title="new-page.astro" desc="Learn how to create a new page using the new-page.astro template." href="/docs/" icon="docs/pages" />
+                        <Card
+                            title="Layout.astro"
+                            desc="Understand how to structure your layout using the Layout.astro component."
+                            href="/docs/"
+                            icon="docs/layouts"
+                        />
+                        <Card
+                            title="containers.css"
+                            desc="Discover how to style containers effectively using the containers.css stylesheet."
+                            href="/docs/"
+                            icon="docs/containers"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="wrap">
+                <div class="features-section">
+                    <div class="features-title">
+                        <h3>starter components</h3>
+                    </div>
+                    <div class="card-list">
+                        <Card
+                            title="NewComponent"
+                            desc="Learn how to create and customize components throughout your interface."
+                            href="/docs/"
+                            icon="docs/new-component"
+                        />
+                        <Card
+                            title="Header.astro"
+                            desc="Learn about the header component and how to customize it for your layout."
+                            href="/docs/"
+                            icon="docs/header"
+                        />
+                        <Card title="Footer.astro" desc="Explore the footer component options and implementation patterns." href="/docs/" icon="docs/footer" />
+                        <Card title="Button.astro" desc="Discover the button component variants and usage guidelines." href="/docs/" icon="docs/button" />
+                        <Card title="Icon" desc="Learn how to use and customize icons throughout your interface." href="/docs/" icon="docs/icons" />
+                        <Card title="Image" desc="Learn how to use and customize images throughout your interface." href="/docs/" icon="docs/images" />
+                    </div>
+                </div>
+            </div>
+            <div class="wrap">
+                <div class="features-section">
+                    <div class="features-title">
+                        <h3>theme styles</h3>
+                    </div>
+                    <div class="card-list">
+                        <Card
+                            title="fonts.css"
+                            desc="Discover the available fonts and how to implement them in your project."
+                            href="/docs/fonts"
+                            icon="docs/fonts"
+                        />
+                        <Card
+                            title="colors.css"
+                            desc="Understand the color palette and how to customize it for your design."
+                            href="/docs/colors"
+                            icon="docs/colors"
+                        />
+                        <Card
+                            title="padding.css"
+                            desc="Learn about the padding options available and how to apply them effectively."
+                            href="/docs/padding"
+                            icon="docs/padding"
+                        />
+                        <Card
+                            title="borders.css"
+                            desc="Explore the border styles and how to use them in your components."
+                            href="/docs/borders"
+                            icon="docs/borders"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<style>
+    /* Page Layout Styles */
+
+    .fade {
+        opacity: 0;
+    }
+
+    .main-wrap {
+        max-width: 100%;
+        flex-grow: 1;
+    }
+
+    section {
+        width: 100%;
+        max-width: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wrap {
+        padding: var(--p-xl);
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+        padding: 2rem var(--p-xl);
+        margin-bottom: 2rem;
+        border-bottom: var(--c-border-primary) 1px solid;
+    }
+
+    .nav-link {
+        background-color: var(--c-fill-primary);
+        color: var(--c-text-alt-primary);
+        padding: 0.33rem 0.75rem;
+        border-radius: var(--b-radius-md);
+    }
+
+    .nav-link:hover {
+        background: var(--c-fill-secondary);
+    }
+
+    /* Feature Section */
+    .features-section {
+        display: flex;
+        gap: calc(var(--p-xl) * 2);
+        max-width: 100%;
+        flex-grow: 1;
+        flex-direction: row;
+    }
+
+    .features-title {
+        display: flex;
+        max-width: 15%;
+        min-width: 20%;
+    }
+
+    /* Card Styles */
+
+    .card-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+        gap: var(--p-md);
+        flex-grow: 1;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .card-image {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background-color: var(--c-fill-primary);
+        border: var(--c-border-primary) 1px solid;
+        border-radius: var(--b-radius-lg);
+    }
+
+    .card-text-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .card-title {
+        display: flex;
+    }
+
+    .card-title-icon {
+        display: flex;
+        align-items: center;
+        margin-right: 0.75rem;
+    }
+
+    .card-desc {
+        display: flex;
+        color: var(--c-text-secondary);
+    }
+
+    /* LAPTOP SMALL - Responsive Styles */
+    @media (max-width: 1024px) {
+        .features-section {
+            flex-direction: column;
+            gap: var(--p-xl);
+        }
+        .features-title {
+            max-width: 100%;
+        }
+    }
+
+    /* TABLET - Responsive Styles */
+    @media (max-width: 768px) {
+        .card-list {
+            grid-template-columns: 1fr;
+            gap: var(--p-xl);
+        }
+    }
+
+    /* MOBILE - Responsive Styles */
+    @media (max-width: 425px) {
+        .card-list {
+            gap: calc(var(--p-xl) * 2);
+        }
+    }
+</style>

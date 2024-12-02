@@ -1,0 +1,33 @@
+---
+interface Props {
+    title?: string;
+    text?: string;
+    linkText?: string;
+    href?: string;
+}
+
+const { title, text, linkText, href } = Astro.props;
+---
+
+<div class="card">
+    <div class="card-body">
+        {title && <h3 class="card-title">{title}</h3>}
+        {text && <p>{text}</p>}
+        {
+            linkText && href && (
+                <div class="card-actions button">
+                    <a href={href}>{linkText}</a>
+                </div>
+            )
+        }
+    </div>
+</div>
+
+<style>
+    .card {
+        background-color: var(--c-surface-primary);
+        border: var(--c-border-primary) 1px solid;
+        padding: 2rem;
+        border-radius: 12px;
+    }
+</style>

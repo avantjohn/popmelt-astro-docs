@@ -1,0 +1,22 @@
+/* BUTTONS */
+
+.button {
+    border: 0;
+    border-radius: var(--b-radius-md);
+    background: var(--c-fill-primary);
+    color: var(--c-text-alt-primary);
+    font-size: 1rem;
+    padding: .5rem .75rem;
+    cursor: pointer;
+}
+
+.button a {
+    color: var(--c-text-alt-primary);
+}
+
+
+
+
+  
+  
+
